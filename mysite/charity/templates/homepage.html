@@ -1,0 +1,158 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'bulma.min.css' %}">
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="{% static 'script.js' %}"></script>
+
+
+
+{% if volunteer_list %}
+<div class=column>
+<h1>Welcome {{volunteer_list.firstname}}</h1>
+{% else %}
+<p>No volunteers are available.</p>
+{% endif %}
+</div>
+
+<div class=flex-container>
+  <div class=column-card>
+    <div class="card">
+      <div class="card-content">
+        <p class="title">
+          “Thanks for volunteering at Bike Corp.”
+        </p>
+        <p class="subtitle">
+          Jeff Atwood
+        </p>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <span>
+            View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+          </span>
+        </p>
+        <p class="card-footer-item">
+          <span>
+            Share on <a href="#">Facebook</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+  </div>
+
+  <div class=column-card>
+    <div class="card">
+      <div class="card-content">
+        <p class="title">
+          “Thanks for volunteering at Bike Corp.”
+        </p>
+        <p class="subtitle">
+          Jeff Atwood
+        </p>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <span>
+            View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+          </span>
+        </p>
+        <p class="card-footer-item">
+          <span>
+            Share on <a href="#">Facebook</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+  </div>
+
+  <div class=column-card>
+    <div class="card">
+      <div class="card-content">
+        <p class="title">
+          “Thanks for volunteering at Bike Corp.”
+        </p>
+        <p class="subtitle">
+          Jeff Atwood
+        </p>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <span>
+            View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+          </span>
+        </p>
+        <p class="card-footer-item">
+          <span>
+            Share on <a href="#">Facebook</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+  </div>
+
+  <div class=column-card>
+    <div class="card">
+      <div class="card-content">
+        <p class="title">
+          “Thanks for volunteering at Bike Corp.”
+        </p>
+        <p class="subtitle">
+          Jeff Atwood
+        </p>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <span>
+            View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+          </span>
+        </p>
+        <p class="card-footer-item">
+          <span>
+            Share on <a href="#">Facebook</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+  </div>
+
+  <div class=column-card>
+    <div class="card">
+      <div class="card-content">
+        <p class="title">
+          “Thanks for volunteering at Bike Corp.”
+        </p>
+        <p class="subtitle">
+          Jeff Atwood
+        </p>
+      </div>
+      <footer class="card-footer">
+        <p class="card-footer-item">
+          <span>
+            View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
+          </span>
+        </p>
+        <p class="card-footer-item">
+          <span>
+            Share on <a href="#">Facebook</a>
+          </span>
+        </p>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<div class='process'>
+<div class='title-stat'> Your Stats </div>
+  <h1 id='volunteer-bar-title'> Total hours of Volunteer </h1>
+  <span><progress class="progress is-primary" id='process-bar' value="15" max="100">15%</progress></span>
+  <span>
+    <figure class="image is-128x128" id='badge'>
+    <img class="is-rounded" src="static/badge.png">
+    </figure>
+  </span>
+</div>
+
+
+<div id='testDiv'>
+  <h1>test </h1>
+</div>
