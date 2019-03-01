@@ -4,14 +4,16 @@ h1 {
 
 .flex-container {
   display: flex;
+  min-height:60%;
   flex-wrap: wrap
+
 
 
 }
 .column-card {
-  flex: 0 0 26%; /* explanation below */
-  width :50%;
-  margin:2%
+  flex: 0 0 40%;
+  width :40%;
+  margin:5%
 }
 
 .process {
@@ -47,4 +49,10 @@ h1 {
     -ms-transform: scale(1.1);
     transform: scale(1.1);
   }
+}
+
+
+
+#background-color{
+  background-color: white
 }

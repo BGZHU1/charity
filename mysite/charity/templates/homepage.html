@@ -1,6 +1,7 @@
 {% load staticfiles %}
 <link rel="stylesheet" href="{% static 'bulma.min.css' %}">
 <link rel="stylesheet" href="{% static 'style.css' %}">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="{% static 'script.js' %}"></script>
 
@@ -14,145 +15,60 @@
 {% endif %}
 </div>
 
-<div class=flex-container>
-  <div class=column-card>
-    <div class="card">
-      <div class="card-content">
-        <p class="title">
-          “Thanks for volunteering at Bike Corp.”
-        </p>
-        <p class="subtitle">
-          Jeff Atwood
-        </p>
-      </div>
-      <footer class="card-footer">
-        <p class="card-footer-item">
-          <span>
-            View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
-          </span>
-        </p>
-        <p class="card-footer-item">
-          <span>
-            Share on <a href="#">Facebook</a>
-          </span>
-        </p>
-      </footer>
-    </div>
-  </div>
 
-  <div class=column-card>
-    <div class="card">
-      <div class="card-content">
-        <p class="title">
-          “Thanks for volunteering at Bike Corp.”
-        </p>
-        <p class="subtitle">
-          Jeff Atwood
-        </p>
-      </div>
-      <footer class="card-footer">
-        <p class="card-footer-item">
-          <span>
-            View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
-          </span>
-        </p>
-        <p class="card-footer-item">
-          <span>
-            Share on <a href="#">Facebook</a>
-          </span>
-        </p>
-      </footer>
-    </div>
-  </div>
 
-  <div class=column-card>
-    <div class="card">
-      <div class="card-content">
-        <p class="title">
-          “Thanks for volunteering at Bike Corp.”
-        </p>
-        <p class="subtitle">
-          Jeff Atwood
-        </p>
-      </div>
-      <footer class="card-footer">
-        <p class="card-footer-item">
-          <span>
-            View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
-          </span>
-        </p>
-        <p class="card-footer-item">
-          <span>
-            Share on <a href="#">Facebook</a>
-          </span>
-        </p>
-      </footer>
-    </div>
-  </div>
 
-  <div class=column-card>
-    <div class="card">
-      <div class="card-content">
-        <p class="title">
-          “Thanks for volunteering at Bike Corp.”
-        </p>
-        <p class="subtitle">
-          Jeff Atwood
-        </p>
+<div class ='flex-container'>
+  {% for i in volunteer_list.firstname%}
+  <div class="box column-card">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <img src="static/volunteer.jpeg" alt="Image">
+        </figure>
       </div>
-      <footer class="card-footer">
-        <p class="card-footer-item">
-          <span>
-            View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
-          </span>
-        </p>
-        <p class="card-footer-item">
-          <span>
-            Share on <a href="#">Facebook</a>
-          </span>
-        </p>
-      </footer>
-    </div>
-  </div>
-
-  <div class=column-card>
-    <div class="card">
-      <div class="card-content">
-        <p class="title">
-          “Thanks for volunteering at Bike Corp.”
-        </p>
-        <p class="subtitle">
-          Jeff Atwood
-        </p>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong>John Smith</strong> <small>@johnsmith</small> <small>31m</small>
+            <br>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean efficitur sit amet massa fringilla egestas. Nullam condimentum luctus turpis.
+          </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <a class="level-item" aria-label="reply">
+              <span class="icon is-small">
+                <i class="fas fa-reply" aria-hidden="true"></i>
+              </span>
+            </a>
+            <a class="level-item" aria-label="retweet">
+              <span class="icon is-small">
+                <i class="fas fa-retweet" aria-hidden="true"></i>
+              </span>
+            </a>
+            <a class="level-item" aria-label="like">
+              <span class="icon is-small">
+                <i class="fas fa-heart" aria-hidden="true"></i>
+              </span>
+            </a>
+          </div>
+        </nav>
       </div>
-      <footer class="card-footer">
-        <p class="card-footer-item">
-          <span>
-            View on <a href="https://twitter.com/codinghorror/status/506010907021828096">Twitter</a>
-          </span>
-        </p>
-        <p class="card-footer-item">
-          <span>
-            Share on <a href="#">Facebook</a>
-          </span>
-        </p>
-      </footer>
-    </div>
+    </article>
   </div>
-</div>
-
-<div class='process'>
-<div class='title-stat'> Your Stats </div>
-  <h1 id='volunteer-bar-title'> Total hours of Volunteer </h1>
-  <span><progress class="progress is-primary" id='process-bar' value="15" max="100">15%</progress></span>
-  <span>
-    <figure class="image is-128x128" id='badge'>
-    <img class="is-rounded" src="static/badge.png">
-    </figure>
-  </span>
+  {% endfor %}
 </div>
 
 
-<div id='testDiv'>
-  <h1>test </h1>
-</div>
+
+  <div class='process'>
+  <div class='title-stat'> Your Stats </div>
+    <h1 id='volunteer-bar-title'> Total hours of Volunteer : 15 </h1>
+    <span><progress class="progress is-primary" id='process-bar' value="15" max="100">15%</progress></span>
+    <span>
+      <figure class="image is-140x140" id='badge'>
+      <img  class="is-rounded" src="static/badge.jpg">
+      </figure>
+    </span>
+  </div>

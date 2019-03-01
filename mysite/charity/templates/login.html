@@ -1,8 +1,44 @@
-<h1> Welcome to Volunteer Events</h1>
-<h3>Please login</h3>
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'bulma.min.css' %}">
 
-<form action="/login/" method="post">
-    <label for="your_name">Your name: </label>
-    <input id="your_name" type="text" name="your_name" value="{{ current_name }}">
-    <input type="submit" value="OK">
-</form>
+<section class="hero is-success is-fullheight" style='background-color:white;'>
+       <div class="hero-body">
+           <div class="container has-text-centered">
+               <div class="column is-4 is-offset-4">
+                   <h3 class="title has-text-grey">Login</h3>
+                   <p class="subtitle has-text-grey">Please login to proceed.</p>
+                   <p class="has-text-grey">{{login_failed}}</p>
+                   <div class="box">
+
+
+                       <form action="/login/" method="post">
+                         {% csrf_token %}
+                           <div class="field">
+                               <div class="control">
+                                   <input class="input is-large" type="text" name='username' placeholder="Your Username" value="{{ form.field.username }}" autofocus="">
+                               </div>
+                           </div>
+
+                           <div class="field">
+                               <div class="control">
+                                   <input class="input is-large" type="password" name='password' placeholder="Your Password" value="{{ form.field.password }}">
+                               </div>
+                           </div>
+                           <div class="field">
+                               <label class="checkbox">
+                 <input type="checkbox">
+                 Remember me
+               </label>
+                           </div>
+                           <button class="button is-block is-info is-large is-fullwidth">Login</button>
+                       </form>
+                   </div>
+                   <p class="has-text-grey">
+                       <a href="../">Sign Up</a> &nbsp;·&nbsp;
+                       <a href="../">Forgot Password</a> &nbsp;·&nbsp;
+                       <a href="../">Need Help?</a>
+                   </p>
+               </div>
+           </div>
+       </div>
+   </section>

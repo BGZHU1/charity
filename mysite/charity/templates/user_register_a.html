@@ -1,0 +1,9 @@
+<h1>Contact</h1>
+<form role="form" action="/register/" method="post">
+    {% csrf_token %}
+
+    <input id="your_name" type="text" name="your_name" value="{{ form.field.email }}">
+
+
+    <button type="submit">Submit</button>
+</form>
