@@ -1,3 +1,7 @@
+background{
+  color:grey
+}
+
 h1 {
   position: center
 }
@@ -6,10 +10,9 @@ h1 {
   display: flex;
   min-height:60%;
   flex-wrap: wrap
-
-
-
 }
+
+
 .column-card {
   flex: 0 0 40%;
   width :40%;
