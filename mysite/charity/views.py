@@ -24,7 +24,7 @@ def personal(request, firstname) :
     # use user to retrieve unique datap
     print(request.user)
     if request.user.is_authenticated == False:
-        return HttpResponseRedirect('/login/')
+        return HttpResponseRedirect('/user_login/')
 
 
     profile = models.Profile.objects.get(user = request.user)
@@ -34,17 +34,20 @@ def personal(request, firstname) :
     context = {
     'volunteer_name': profile.firstname,
     'volunteer_hours':profile.number_hours,
-    'message_list' : message_list
+    'volunteer_moneny_value' : float(profile.number_hours) * 23,
+    'message_list' : message_list,
+    'percentage_volunteer_hours' : float(profile.number_hours) / 2000
     }
     return HttpResponse(template.render(context, request))
 
 #render view for login -- or get to
-def login(request) :
+def user_login(request) :
     #return HttpResponse('homepage')
     #return render(request, 'homepage.html')
     """
     List all code snippets, or create a new snippet.
     """
+    print('user login')
     if request.method == 'GET':
     #return HttpResponse('homepage')
     #return render(request, 'homepage.html')
@@ -77,6 +80,7 @@ def login(request) :
             #need change to retrieve data page, now just redirect to home
             #from user, get first name
             print(user, 'get user')
+            login(request, user)
             firstname = models.Profile.objects.get(user = request.user).firstname
             #print(firstname)
             return redirect('/personal/' + firstname)
@@ -116,7 +120,7 @@ def register(request) :
         #return render(request, "user_register.html", {"form": user_profile})
 
 
-        return HttpResponseRedirect('/login/')
+        return HttpResponseRedirect('/user_login/')
     else:
         profile = Profile()
         return render(request, "user_register.html", {"form": profile})

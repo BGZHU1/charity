@@ -19,7 +19,9 @@
   <div class='process'>
   <div class='title-stat'> Your Stats </div>
   <div>
-    <h1 id='volunteer-bar-title'> Total hours of Volunteer : {{volunteer_hours}}</h1>
+    <h1 id='volunteer-bar-title'> Total hours of Volunteer : {{volunteer_hours}} </h1>
+    <h1 id='volunteer-bar-title'> Total value of your volunteer is : {{volunteer_moneny_value}} </h1>
+
     <button class="button is-primary modal-button" data-target="#myModal" aria-haspopup="true">update volunteer hours!</button>
 
   <div class="modal" id="myModal">
@@ -64,7 +66,60 @@
       </div>
 
   </div>
-    <span><progress class="progress is-primary" id='process-bar' value="15" max="100">15%</progress></span>
+    <span><progress class="progress is-primary" id='process-bar' value={{volunteer_hours}} max="2000">{{percentage_volunteer_hours}}</progress></span>
+    <!--<p class="progress-value has-text-white">{{percentage_volunteer_hours}}</p>--->
+    <div class="vefs-milestone-wrapper">
+  <div class="milestone-container">
+
+    <div class="chart-container">
+      <div class="line-container">
+        <div class="line"></div>
+        <!-- here to change the process -->
+        <div class="line left" style="width: 50%"></div>
+      </div>
+
+      <div class="dot-container">
+        <div class="milestones milestone__10">
+          <div class="dot completed colored"></div>
+        </div>
+        <div class="milestones milestone__25">
+          <div class="dot completed colored"></div>
+        </div>
+        <div class="milestones milestone__50">
+          <div class="dot completed colored"></div>
+        </div>
+        <div class="milestones milestone__80">
+          <div class="dot"></div>
+        </div>
+        <div class="milestones milestone__100">
+          <div class="dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="label-container">
+      <div class="milestones milestone__10">
+        <div class="label colored">10% you got sandwich</div>
+      </div>
+      <div class="milestones milestone__25">
+        <div class="label colored">25%</div>
+      </div>
+      <div class="milestones milestone__50">
+        <div class="label colored">50%</div>
+      </div>
+      <div class="milestones milestone__80">
+        <div class="label">80%</div>
+      </div>
+      <div class="milestones milestone__100">
+        <div class="label">100%</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!--end of milestone -->
+
+
   <!--  <span>
       <figure class="image is-140x140" id='badge'>
       <img  class="is-rounded" src="/../static/badge.jpg">
