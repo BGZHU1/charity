@@ -1,0 +1,119 @@
+{% load staticfiles %}
+<link rel="stylesheet" href="{% static 'bulma.min.css' %}">
+<link rel="stylesheet" href="{% static 'style.css' %}">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="{% static 'script.js' %}"></script>
+
+
+
+{% if volunteer_name %}
+<div class=column>
+<h1>Welcome {{volunteer_name}}</h1>
+{% else %}
+<p>No volunteers are available.</p>
+{% endif %}
+</div>
+
+
+  <div class='process'>
+  <div class='title-stat'> Your Stats </div>
+  <div>
+    <h1 id='volunteer-bar-title'> Total hours of Volunteer : {{volunteer_hours}}</h1>
+    <button class="button is-primary modal-button" data-target="#myModal" aria-haspopup="true">update volunteer hours!</button>
+
+  <div class="modal" id="myModal">
+    <div class="modal-background"></div>
+    <div class="modal-content" style="width:20em">
+      <button class="modal-close is-large" aria-label="close"></button>
+
+                             <form action="/update_hours/" method="post">
+                               {% csrf_token %}
+                               <div class="field" >
+                                   <h1 style="color:white">It may take upto 24 Hours for your hours to update<h1>
+                               </div>
+
+                               <div class="field">
+                                   <h1 style="color:white">What Organization did you volunteer with?<h1>
+                                   <div class="control">
+                                       <input class="input is-large" type="text" name='organization' placeholder="Volunteer Organization" value="{{ form.field.charity }}">
+                                   </div>
+                               </div>
+                                 <div class="field">
+                                     <h1 style="color:white">How many hours did you volunteer?<h1>
+                                     <div class="control">
+                                         <input class="input is-large" type="text" name='hour' placeholder="Your Hours" value="{{ form.field.hour }}">
+                                     </div>
+                                 </div>
+                                 <div class="field">
+                                     <h1 style="color:white">What date did you volunteered<h1>
+                                     <div class="control">
+                                         <input class="input is-large" type="date" name='date'  value="{{ form.field.date }}">
+                                     </div>
+                                 </div>
+
+                                 <div class="field">
+                                     <label class="checkbox">
+                       <input type="checkbox">
+                       <span style='color:white'>I confirm that hours I have entered are true and accurate<span>
+                     </label>
+                                 </div>
+                                 <button class="button is-block is-info is-large is-fullwidth">submit</button>
+                             </form>
+             </div>
+      </div>
+
+  </div>
+    <span><progress class="progress is-primary" id='process-bar' value="15" max="100">15%</progress></span>
+  <!--  <span>
+      <figure class="image is-140x140" id='badge'>
+      <img  class="is-rounded" src="/../static/badge.jpg">
+      </figure>
+    </span>-->
+  </div>
+
+
+{% if message_list %}
+<div>{{message_list.user}} </div>
+<div class ='flex-container'>
+  {% for message in message_list%}
+  <div class="box column-card">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <img src="../../static/volunteer.jpeg" alt="Image">
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong>{{message.organization}}</strong> <small>{{message.date}}</small> <!--<small>31m</small>-->
+            <br>
+            Well Done, {{volunteer_name}} !  You are Volunteered {{message.hours}} hours at {{message.organization}}!
+          </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+          <!--  <a class="level-item" aria-label="reply">
+              <span class="icon is-small">
+                <i class="fas fa-reply" aria-hidden="true"></i>
+              </span>
+            </a>-->
+            <a class="level-item" href="https://twitter.com/intent/tweet?text=I%20just%20finished%20volunteering {{message.hours}} hours%20at%20{{message.organization}}%20join%20me%20next%20time%20@powered%20by%20@deargoodpeople.org" aria-label="retweet">
+              <span class="icon is-small">
+                <i class="fas fa-retweet" aria-hidden="true"></i>
+              </span>
+            </a>
+          <!--  <a class="level-item" aria-label="like">
+              <span class="icon is-small">
+                <i class="fas fa-heart" aria-hidden="true"></i>
+              </span>
+            </a>-->
+          </div>
+        </nav>
+      </div>
+    </article>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}

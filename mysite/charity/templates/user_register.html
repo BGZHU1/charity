@@ -7,24 +7,17 @@
   {% csrf_token %}
 <h1>Register Form</h1>
 
-  <label class="label">Name</label>
+  <label class="label">First Name</label>
   <div class="control">
-    <input class="input" style='width:30%' type="text" name='name' placeholder="Text input" value="{{ form.field.name }}">
+    <input class="input" style='width:30%' type="text" name='firstname' placeholder="Text input" value="{{ form.field.firstname }}">
   </div>
 
-<div class="field">
-  <label class="label">Username</label>
-  <div class="control has-icons-left has-icons-right">
-  <input class="input is-success"  style='width:30%' type="text" name='user_name' placeholder="Text input" value="{{ form.field.username }}">
-    <span class="icon is-small is-left">
-      <i class="fas fa-user"></i>
-    </span>
-    <span class="icon is-small is-right">
-      <i class="fas fa-check"></i>
-    </span>
+  <label class="label">Last Name</label>
+  <div class="control">
+    <input class="input" style='width:30%' type="text" name='lastname' placeholder="Text input" value="{{ form.field.lastname }}">
   </div>
-  <p class="help is-success">This username is available</p>
-</div>
+
+
 
 <div class="field">
   <label class="label">Password</label>
@@ -54,24 +47,18 @@
   <p class="help is-danger">This email is invalid</p>
 </div>
 
-<div class="field">
-  <label class="label">Subject</label>
-  <div class="control">
-    <div class="select">
-      <select>
-        <option>Select dropdown</option>
-        <option>With options</option>
-      </select>
-    </div>
+<!--<div class="field">
+  <label class="label">Charity you volunteered with</label>
+  <div class="control has-icons-left has-icons-right">
+  <p><input class="input is-danger" type="text" style='width:30%' name='charity_name' placeholder="charity name" value="{{ form.field.charity }}"></p>
+    <span class="icon is-small is-left">
+      <i class="fas fa-envelope"></i>
+    </span>
+    <span class="icon is-small is-right">
+      <i class="fas fa-exclamation-triangle"></i>
+    </span>
   </div>
-</div>
-
-<div class="field">
-  <label class="label">Message</label>
-  <div class="control">
-    <textarea class="textarea" placeholder="Textarea"></textarea>
-  </div>
-</div>
+</div>-->
 
 <div class="field">
   <div class="control">

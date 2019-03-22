@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.contrib import admin
 
 # Register your models here.
-from .models import Volunteers, Profile
+from .models import Message, Profile
 
-admin.site.register(Volunteers)
+admin.site.register(Message)
 admin.site.register(Profile)
