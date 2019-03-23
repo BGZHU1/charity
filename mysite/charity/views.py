@@ -110,12 +110,21 @@ def register(request) :
         #charity = user_info['charity_name']
         charity = ''
         print(user_info)
-        user = User.objects.create_user(username = email, password = password,  first_name = firstname, last_name = lastname)
-        user.save()
+        user = None
+        try :
+            user = User.objects.create_user(username = email, password = password,  first_name = firstname, last_name = lastname)
+            user.save()
+                #profile potentially for additional user information
+            profile = models.Profile.objects.create(user=user, charity_list =charity, number_hours = 0, firstname = firstname, lastname = lastname)
+            profile.save()
+        except :
+            template = loader.get_template('user_register.html')
+            context = {
+                'user_creation_failed' : 'the email already exists, please use an different email and try again'
+            }
+            return HttpResponse(template.render(context, request))
 
-        #profile potentially for additional user information
-        profile = models.Profile.objects.create(user=user, charity_list =charity, number_hours = 0, firstname = firstname, lastname = lastname)
-        profile.save()
+
 
 
 

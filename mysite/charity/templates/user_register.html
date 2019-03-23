@@ -1,20 +1,24 @@
 {% load staticfiles %}
 <link rel="stylesheet" href="{% static 'bulma.min.css' %}">
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="{% static 'register_validation.js' %}"></script>
+
 
 <div class = 'flex-container' style="margin:5% 20% 5% 20%;">
 {% block content %}
-<form action="/register/" method="post">
+<form action="/register/" method="POST">
   {% csrf_token %}
 <h1>Register Form</h1>
+<p class="has-text-grey">{{user_creation_failed}}</p>
 
   <label class="label">First Name</label>
   <div class="control">
-    <input class="input" style='width:30%' type="text" name='firstname' placeholder="Text input" value="{{ form.field.firstname }}">
+    <input id='firstname' class="input" style='width:30%' type="text" name='firstname' placeholder="Text input" value="{{ form.field.firstname }}">
   </div>
 
   <label class="label">Last Name</label>
   <div class="control">
-    <input class="input" style='width:30%' type="text" name='lastname' placeholder="Text input" value="{{ form.field.lastname }}">
+    <input id='lastname' class="input" style='width:30%' type="text" name='lastname' placeholder="Text input" value="{{ form.field.lastname }}">
   </div>
 
 
@@ -22,7 +26,7 @@
 <div class="field">
   <label class="label">Password</label>
   <div class="control has-icons-left has-icons-right">
-  <input class="input is-success" type="text" style='width:30%' name='password' placeholder="Text input" value="{{ form.field.password }}">
+  <input id='password' class='input' type="text" style='width:30%' name='password' placeholder="Text input" value="{{ form.field.password }}">
     <span class="icon is-small is-left">
       <i class="fas fa-user"></i>
     </span>
@@ -30,13 +34,13 @@
       <i class="fas fa-check"></i>
     </span>
   </div>
-  <p class="help is-success">This username is available</p>
+<!--  <p class="help is-success">This username is available</p>-->
 </div>
 
 <div class="field">
   <label class="label">Email</label>
   <div class="control has-icons-left has-icons-right">
-  <p><input class="input is-danger" type="email" style='width:30%' name='email_address' placeholder="Email input" value="{{ form.field.email }}"></p>
+  <p><input id='email' class="input" type="email" style='width:30%' name='email_address' placeholder="Email input" value="{{ form.field.email }}"></p>
     <span class="icon is-small is-left">
       <i class="fas fa-envelope"></i>
     </span>
@@ -44,7 +48,7 @@
       <i class="fas fa-exclamation-triangle"></i>
     </span>
   </div>
-  <p class="help is-danger">This email is invalid</p>
+<!--<p class="help is-danger">This email is invalid</p>-->
 </div>
 
 <!--<div class="field">
@@ -84,7 +88,7 @@
 
 <div class="field is-grouped">
   <div class="control">
-    <button class="button is-link">Submit</button>
+    <button class="button is-link" id='submit'>Submit</button>
   </div>
 </div>
 </form>
