@@ -179,11 +179,6 @@ def update_hours(request) :
 
 
 
-
-
-
-
-
             #need change to retrieve data page, now just redirect to home
     return HttpResponseRedirect('/personal/' + firstname)
     '''
