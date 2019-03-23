@@ -157,22 +157,26 @@ def update_hours(request) :
         #generate auto message on board
 
         #first get hours in Profile
-        print(request.user)
-        profile = models.Profile.objects.get(user = request.user)
-        firstname = profile.firstname
-        new_total_hours = profile.number_hours + float(hours)
-        profile.number_hours = new_total_hours
-        print(profile.number_hours, new_total_hours)
-        profile.save()
+        try :
+            print(request.user)
+            profile = models.Profile.objects.get(user = request.user)
+            firstname = profile.firstname
+            new_total_hours = profile.number_hours + float(hours)
+            profile.number_hours = new_total_hours
+            print(profile.number_hours, new_total_hours)
+            profile.save()
 
-        #pop up share screen
-        #first creat additaionl entry
-        #user = models.ForeignKey(User, on_delete=models.CASCADE)
-        organization = request.POST['organization']
-        hours = request.POST['hour']
-        date = request.POST['date']
-        message = models.Message.objects.create(user = request.user, organization =organization, hours = hours, date = date)
-        message.save()
+            #pop up share screen
+            #first creat additaionl entry
+            #user = models.ForeignKey(User, on_delete=models.CASCADE)
+            organization = request.POST['organization']
+            hours = request.POST['hour']
+            date = request.POST['date']
+            message = models.Message.objects.create(user = request.user, organization =organization, hours = hours, date = date)
+            message.save()
+        except :
+            return HttpResponse('error input, please double check the hours and charity organization')
+
 
 
 

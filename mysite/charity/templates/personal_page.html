@@ -75,7 +75,11 @@
       <div class="line-container">
         <div class="line"></div>
         <!-- here to change the process -->
+        {%if percentage_volunteer_hours <= 100%}
         <div class="line left" style="width : {{percentage_volunteer_hours}}% "></div>
+        {%else%}
+        <div class="line left" style="width : 100% "></div>
+        {%endif%}
       </div>
 
       <div class="dot-container">
@@ -190,10 +194,10 @@
   <div style="margin-left:10%; margin-right:10%; margin-bottom:0%; margin-top:3%;">
     <div class='title-stat'> Your Top Skills Used in Volunteer Events</div>
 
-    <div class="skillbar clearfix " data-percent="{{percentage_volunteer_hours}}%">
+    <div class="skillbar clearfix " data-percent="40%">
     	<div class="skillbar-title" style="background: #d35400;"><span>Events Organization</span></div>
     	<div class="skillbar-bar" style="background: #e67e22;"></div>
-    	<div class="skill-bar-percent">{{percentage_volunteer_hours}}%</div>
+    	<div class="skill-bar-percent">40%</div>
     </div> <!-- End Skill Bar -->
 
     <div class="skillbar clearfix " data-percent="25%">
