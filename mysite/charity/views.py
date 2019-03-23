@@ -36,7 +36,7 @@ def personal(request, firstname) :
     'volunteer_hours':profile.number_hours,
     'volunteer_moneny_value' : float(profile.number_hours) * 23,
     'message_list' : message_list,
-    'percentage_volunteer_hours' : float(profile.number_hours) / 2000
+    'percentage_volunteer_hours' : float(profile.number_hours) / 200 * 100
     }
     return HttpResponse(template.render(context, request))
 
@@ -99,6 +99,8 @@ def register(request) :
     #return render(request, 'homepage.html')
     #figure out how to create new user and authentication
     if request.method == 'POST':
+        #need to validate form information here
+
         user_info = request.POST
         print(user_info)
         firstname = user_info['firstname']

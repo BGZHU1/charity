@@ -3,6 +3,7 @@
 <link rel="stylesheet" href="{% static 'style.css' %}">
 <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="{% static 'skill.js' %}"></script>
 <script type="text/javascript" src="{% static 'script.js' %}"></script>
 
 
@@ -18,11 +19,10 @@
 
   <div class='process'>
   <div class='title-stat'> Your Stats </div>
-  <div>
-    <h1 id='volunteer-bar-title'> Total hours of Volunteer : {{volunteer_hours}} </h1>
-    <h1 id='volunteer-bar-title'> Total value of your volunteer is : {{volunteer_moneny_value}} </h1>
+  <button class="button is-primary modal-button" id="update_button" style='margin-bottom:3.5%; margin-left:10%;' data-target="#myModal" aria-haspopup="true">update volunteer hours!</button>
 
-    <button class="button is-primary modal-button" data-target="#myModal" aria-haspopup="true">update volunteer hours!</button>
+  <div>
+
 
   <div class="modal" id="myModal">
     <div class="modal-background"></div>
@@ -66,16 +66,16 @@
       </div>
 
   </div>
-    <span><progress class="progress is-primary" id='process-bar' value={{volunteer_hours}} max="2000">{{percentage_volunteer_hours}}</progress></span>
+  <!--  <span><progress class="progress is-primary" id='process-bar' value={{volunteer_hours}} max="2000">{{percentage_volunteer_hours}}</progress></span> -->
     <!--<p class="progress-value has-text-white">{{percentage_volunteer_hours}}</p>--->
-    <div class="vefs-milestone-wrapper">
+   <div class="vefs-milestone-wrapper" style='width:80%; margin-left:10%;'>
   <div class="milestone-container">
 
     <div class="chart-container">
       <div class="line-container">
         <div class="line"></div>
         <!-- here to change the process -->
-        <div class="line left" style="width: 50%"></div>
+        <div class="line left" style="width : {{percentage_volunteer_hours}}% "></div>
       </div>
 
       <div class="dot-container">
@@ -89,45 +89,157 @@
           <div class="dot completed colored"></div>
         </div>
         <div class="milestones milestone__80">
-          <div class="dot"></div>
+          <div class="dot completed colored"></div>
         </div>
         <div class="milestones milestone__100">
-          <div class="dot"></div>
+          <div class="dot  completed colored"></div>
         </div>
       </div>
     </div>
 
     <div class="label-container">
       <div class="milestones milestone__10">
-        <div class="label colored">10% you got sandwich</div>
+        <div class="label colored">10%</div>
       </div>
       <div class="milestones milestone__25">
         <div class="label colored">25%</div>
       </div>
       <div class="milestones milestone__50">
-        <div class="label colored">50%</div>
+        <div class="label colored" >50%</div>
+
       </div>
       <div class="milestones milestone__80">
         <div class="label">80%</div>
       </div>
       <div class="milestones milestone__100">
         <div class="label">100%</div>
+
       </div>
     </div>
 
   </div>
 </div>
 <!--end of milestone -->
-
-
+<div style="margin-top:5%; margin-left:10%">
+    <h1> Total hours of Volunteer : {{volunteer_hours}} </h1>
+    <h1> Your contribution is effectively worth : ${{volunteer_moneny_value}} <sup>*</sup> </h1>
+</div>
   <!--  <span>
       <figure class="image is-140x140" id='badge'>
       <img  class="is-rounded" src="/../static/badge.jpg">
       </figure>
     </span>-->
+
+
+
+    <div class='title-stat'> Your Recognition Rewards</div>
+    <div  style="margin-left:25%; margin-right:10%; margin-bottom:0%; margin-top:3%; display:flex;">
+      <figure class="image is-140x140" id='badge'>
+         <img class='is-rounded' src="../../static/badges/badge.png">
+         <p style='margin-left:30%'>Starter</p>
+       </figure>
+
+
+    <figure class="image is-140x140" id='badge'>
+      {%if volunteer_hours >= 20 %}
+       <img class='is-rounded' src="../../static/badges/image1.png">
+       {%else%}
+       <img class='is-rounded' src="../../static/badges/image1.png" style="opacity: 0.13;">
+       {%endif%}
+       <p style='margin-left:14%'>20 hours</p>
+     </figure>
+
+    <figure class="image is-140x140" id='badge'>
+      {%if volunteer_hours >= 50 %}
+       <img class='is-rounded' src="../../static/badges/image2.png">
+       {%else%}
+       <img class='is-rounded' src="../../static/badges/image2.png" style="opacity: 0.13;">
+       {%endif%}
+       <p style='margin-left:14%'>50 hours</p>
+     </figure>
+
+
+     <figure class="image is-140x140" id='badge'>
+       {%if volunteer_hours >= 100 %}
+        <img class='is-rounded' src="../../static/badges/image3.png">
+        {%else%}
+        <img class='is-rounded' src="../../static/badges/image3.png" style="opacity: 0.13;">
+        {%endif%}     <p style='margin-left:14%'>100 hours</p>
+    </figure>
+
+    <figure class="image is-140x140" id='badge'>
+      {%if volunteer_hours >= 160 %}
+       <img class='is-rounded' src="../../static/badges/image4.png">
+       {%else%}
+       <img class='is-rounded' src="../../static/badges/image4.png" style="opacity: 0.13;">
+       {%endif%}    <p style='margin-left:14%'>160 hours</p>
+   </figure>
+   <figure class="image is-140x140" id='badge'>
+     {%if volunteer_hours >= 200 %}
+      <img class='is-rounded' src="../../static/badges/image5.png">
+      {%else%}
+      <img class='is-rounded' src="../../static/badges/image5.png" style="opacity: 0.13;">
+      {%endif%}   <p style='margin-left:14%'>200 hours</p>
+  </figure>
+  </div>
+
+  <div class='title-stat' style='margin-top:5%'> Your Personal Impact Statement</div>
+  <p class='title-stat' style='font-size:1em'>Unlock Your Personal Impact Statement After 100 Hours Of Volunteering With The Same Charity</p>
+
+
+  <div style="margin-left:10%; margin-right:10%; margin-bottom:0%; margin-top:3%;">
+    <div class='title-stat'> Your Top Skills Used in Volunteer Events</div>
+
+    <div class="skillbar clearfix " data-percent="20%">
+    	<div class="skillbar-title" style="background: #d35400;"><span>Events Organization</span></div>
+    	<div class="skillbar-bar" style="background: #e67e22;"></div>
+    	<div class="skill-bar-percent">20%</div>
+    </div> <!-- End Skill Bar -->
+
+    <div class="skillbar clearfix " data-percent="25%">
+    	<div class="skillbar-title" style="background: #2980b9;"><span>Communication</span></div>
+    	<div class="skillbar-bar" style="background: #3498db;"></div>
+    	<div class="skill-bar-percent">25%</div>
+    </div> <!-- End Skill Bar -->
+
+    <div class="skillbar clearfix " data-percent="50%">
+    	<div class="skillbar-title" style="background: #2c3e50;"><span>Writing</span></div>
+    	<div class="skillbar-bar" style="background: #2c3e50;"></div>
+    	<div class="skill-bar-percent">50%</div>
+    </div> <!-- End Skill Bar -->
+
+    <div class="skillbar clearfix " data-percent="40%">
+    	<div class="skillbar-title" style="background: #46465e;"><span>Leadership</span></div>
+    	<div class="skillbar-bar" style="background: #5a68a5;"></div>
+    	<div class="skill-bar-percent">40%</div>
+    </div> <!-- End Skill Bar -->
+
+    <div class="skillbar clearfix " data-percent="75%">
+    	<div class="skillbar-title" style="background: #333333;"><span>Problem Solving</span></div>
+    	<div class="skillbar-bar" style="background: #525252;"></div>
+    	<div class="skill-bar-percent">75%</div>
+    </div> <!-- End Skill Bar -->
+
+    <div class="skillbar clearfix " data-percent="100%">
+    	<div class="skillbar-title" style="background: #27ae60;"><span>Critical Thinking</span></div>
+    	<div class="skillbar-bar" style="background: #2ecc71;"></div>
+    	<div class="skill-bar-percent">100%</div>
+    </div> <!-- End Skill Bar -->
+
+    <div class="skillbar clearfix " data-percent="70%">
+    	<div class="skillbar-title" style="background: #124e8c;"><span>Team Player</span></div>
+    	<div class="skillbar-bar" style="background: #4288d0;"></div>
+    	<div class="skill-bar-percent">70%</div>
+    </div> <!-- End Skill Bar -->
+    </div>
+
   </div>
 
 
+
+
+
+  <div class='title-stat'> Your Volunteer Journals</div>
 {% if message_list %}
 <div>{{message_list.user}} </div>
 <div class ='flex-container'>
