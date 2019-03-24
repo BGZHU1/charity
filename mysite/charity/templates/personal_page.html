@@ -256,9 +256,10 @@
         </figure>
       </div>
       <div class="media-content">
+        <a class="delete" href="/delete_journal/{{message.auto_increment_id}}" style="margin-left:90%"></a>
         <div class="content">
           <p>
-            <strong>{{message.organization}}</strong> <small>{{message.date}}</small> <!--<small>31m</small>-->
+            <strong>{{message.organization}}</strong> <small>{{message.date}}</small>
             <br>
             Well Done, {{volunteer_name}} !  You are Volunteered {{message.hours}} hours at {{message.organization}}!
           </p>

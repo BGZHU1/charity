@@ -26,6 +26,7 @@ $(document).ready(function() {
           target.classList.remove('is-active');
        });
     });
+
   });
 
 

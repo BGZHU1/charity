@@ -189,3 +189,19 @@ def update_hours(request) :
             }
             return HttpResponse(template.render(context, request))
     '''
+def delete_journal(request, id) :
+    profile = models.Profile.objects.get(user = request.user)
+    firstname = profile.firstname
+    message_to_delete = models.Message.objects.get(pk=id)
+    hours = message_to_delete.hours
+    message_to_delete.delete()
+
+    #update total hours
+    new_total_hours = profile.number_hours - float(hours)
+    profile.number_hours = new_total_hours
+    print(profile.number_hours, new_total_hours)
+    profile.save()
+
+    #delete individual entry
+
+    return HttpResponseRedirect('/personal/' + firstname)
