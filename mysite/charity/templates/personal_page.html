@@ -2,7 +2,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
 <link rel="stylesheet" href="{% static 'style.css' %}">
 <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="{% static 'skill.js' %}"></script>
 <script type="text/javascript" src="{% static 'script.js' %}"></script>
 
@@ -125,7 +125,7 @@
 </div>
 <!--end of milestone -->
 <div style="margin-top:5%; margin-left:10%">
-    <h1> Total hours of Volunteer : {{volunteer_hours}} </h1>
+    <h1> Total Volunteering Hours : {{volunteer_hours}} </h1>
     <h1> Your contribution is effectively worth : ${{volunteer_moneny_value}} <sup>*</sup> </h1>
 </div>
   <!--  <span>
@@ -136,7 +136,7 @@
 
 
 
-    <div class='title-stat'> Your Recognition Rewards</div>
+    <div class='title-stat'> Your Recognition Award</div>
     <div  style="margin-left:25%; margin-right:10%; margin-bottom:0%; margin-top:3%; display:flex;">
       <figure class="image is-140x140" id='badge'>
          <img class='is-rounded' src="../../static/badges/badge.png">
