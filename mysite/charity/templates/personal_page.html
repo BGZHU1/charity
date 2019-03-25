@@ -1,5 +1,5 @@
 {% load staticfiles %}
-<link rel="stylesheet" href="{% static 'bulma.min.css' %}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
 <link rel="stylesheet" href="{% static 'style.css' %}">
 <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
@@ -243,11 +243,12 @@
 
 
 
-  <div class='title-stat'> Your Volunteer Journals</div>
+  <div class='title-stat'> Your Volunteer Journal</div>
 {% if message_list %}
 <div>{{message_list.user}} </div>
 <div class ='flex-container'>
   {% for message in message_list%}
+<!--  <div class="box column-card">--> <!--there will be boarder height issue -->
   <div class="box column-card">
     <article class="media">
       <div class="media-left">

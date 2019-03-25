@@ -13,10 +13,9 @@ h1 {
 }
 
 
-.column-card {
+.box.column-card {
   flex: 0 0 40%;
   width :40%;
-  height:50%;
   margin:5%
 }
 
