@@ -107,7 +107,15 @@ def register(request) :
         lastname = user_info['lastname']
         email = user_info['email_address']
         password = user_info['password']
+        password2 = user_info['password2']
         #charity = user_info['charity_name']
+        if password != password2 :
+            template = loader.get_template('user_register.html')
+            context = {
+                'user_creation_failed' : 'please enter the same password twice'
+            }
+            return HttpResponse(template.render(context, request))
+
         charity = ''
         print(user_info)
         user = None

@@ -13,12 +13,12 @@
 
   <label class="label">First Name</label>
   <div class="control">
-    <input id='firstname' class="input" style='width:30%' type="text" name='firstname' placeholder="Text input" value="{{ form.field.firstname }}">
+    <input id='firstname' class="input" style='width:30%' type="text" name='firstname' placeholder="first name" value="{{ form.field.firstname }}">
   </div>
 
   <label class="label">Last Name</label>
   <div class="control">
-    <input id='lastname' class="input" style='width:30%' type="text" name='lastname' placeholder="Text input" value="{{ form.field.lastname }}">
+    <input id='lastname' class="input" style='width:30%' type="text" name='lastname' placeholder="last name" value="{{ form.field.lastname }}">
   </div>
 
 
@@ -26,7 +26,21 @@
 <div class="field">
   <label class="label">Password</label>
   <div class="control has-icons-left has-icons-right">
-  <input id='password' class='input' type="text" style='width:30%' name='password' placeholder="Text input" value="{{ form.field.password }}">
+  <input id='password' class='input' type="password" style='width:30%' name='password' placeholder="password" value="{{ form.field.password }}">
+    <span class="icon is-small is-left">
+      <i class="fas fa-user"></i>
+    </span>
+    <span class="icon is-small is-right">
+      <i class="fas fa-check"></i>
+    </span>
+  </div>
+<!--  <p class="help is-success">This username is available</p>-->
+</div>
+
+<div class="field">
+  <label class="label">Confirm Password</label>
+  <div class="control has-icons-left has-icons-right">
+  <input id='password2' class='input' type="password" style='width:30%' name='password2' placeholder="enter password again" value="{{ form.field.password2 }}">
     <span class="icon is-small is-left">
       <i class="fas fa-user"></i>
     </span>
@@ -40,7 +54,7 @@
 <div class="field">
   <label class="label">Email</label>
   <div class="control has-icons-left has-icons-right">
-  <p><input id='email' class="input" type="email" style='width:30%' name='email_address' placeholder="Email input" value="{{ form.field.email }}"></p>
+  <p><input id='email' class="input" type="email" style='width:30%' name='email_address' placeholder="email" value="{{ form.field.email }}"></p>
     <span class="icon is-small is-left">
       <i class="fas fa-envelope"></i>
     </span>
@@ -64,14 +78,14 @@
   </div>
 </div>-->
 
-<div class="field">
+<!--<div class="field">
   <div class="control">
     <label class="checkbox">
       <input type="checkbox">
       I agree to the <a href="#">terms and conditions</a>
     </label>
   </div>
-</div>
+</div>-->
 
 <!--<div class="field">
   <div class="control">

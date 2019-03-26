@@ -8,16 +8,15 @@ h1 {
 
 .flex-container {
   display: flex;
-  height:25%;
+  /*height:25%;*/
   flex-wrap: wrap
 }
 
 
-.column-card {
+.box.column-card {
   flex: 0 0 40%;
   width :40%;
-  height:50%;
-  margin:5%
+  margin:5%;
 }
 
 .process .process-status {
