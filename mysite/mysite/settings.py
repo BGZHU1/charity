@@ -31,8 +31,10 @@ ALLOWED_HOSTS = ['*','*.elasticbeanstalk.com']
 # Application definition
 
 INSTALLED_APPS = [
-    'charity.apps.CharityConfig',
+    'charity',
+    #'charity.apps.CharityConfig',
     'rest_framework',
+    'rest_framework.authtoken',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +42,26 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 ]
+
+#AUTH_USER_MODEL = 'charity.Profile'
+
+#redirect if login fail or logout
+#LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+'''
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+'''
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -10,29 +10,103 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from django.contrib.auth import authenticate, login
+from django.views.generic import TemplateView
+
+from django.views.generic import TemplateView
+from django.contrib.auth.decorators import login_required
+
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from .form import *
+
+class TokenView(ObtainAuthToken):
+
+    #overwrite the post method inside ObtainAuthToken
+    def post(self, request, *args, **kwargs):
+        print(request.POST)
+        serializer = self.serializer_class(data=request.data,
+                                           context={'request': request})
+
+        #this part will check able to generate token or not/ raise exception if not able to login and generate token
+
+        if not serializer.is_valid(raise_exception=False) :
+            template = loader.get_template('registration/login.html')
+            context = {
+                'login_failed': 'login failed, please try again'
+            }
+            return HttpResponse(template.render(context, request))
+
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        print('token', token)
+        print(self.schema) # from parent class
+        #return Response({'token': token.key})
 
 
 
-#from models import Volunteers
+        #this may be different view later
+        #get personal page info
+        #will first login for future update info
+        print(request)
+        user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        print(user)
+        if user is not None:
+            login(request, user)
 
 
+        profile = models.Profile.objects.get(username=user)
+        print(profile)
+        message_list = models.Message.objects.filter(user=user).values()
+        print(message_list, 'message list')
+        template = loader.get_template('personal_page.html')
+        context = {
+            'volunteer_name': profile.first_name,
+            'volunteer_hours': profile.number_hours,
+            'volunteer_moneny_value': float(profile.number_hours) * 23,
+            'message_list': message_list,
+            'percentage_volunteer_hours': float(profile.number_hours) / 200 * 100
+        }
+        return HttpResponse(template.render(context, request))
+
+
+
+
+class UserVerificationView(APIView):
+    #authentication_classes = (SessionAuthentication, BasicAuthentication)
+
+    #this means require authentication first
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, format=None):
+        print(request.POST)
+        content = {
+            'user': request.POST['user'],  # `django.contrib.auth.User` instance.
+            'auth':None,  # None
+        }
+        return Response(content)
 
 # Create your views here.
-def personal(request, firstname) :
+#@login_required
+def personal(request) :
     #return HttpResponse('homepage')
     #return render(request, 'homepage.html')
     # use user to retrieve unique datap
-    print(request.user)
+    print(request.user, request.user.is_authenticated)
     if request.user.is_authenticated == False:
-        return HttpResponseRedirect('/user_login/')
+        return HttpResponseRedirect('/')
 
-
-    profile = models.Profile.objects.get(user = request.user)
+    print(request)
+    profile = models.Profile.objects.get(username = request.user)
+    print(profile)
     message_list = models.Message.objects.filter(user = request.user).values()
     print(message_list,'message list')
     template = loader.get_template('personal_page.html')
     context = {
-    'volunteer_name': profile.firstname,
+    'volunteer_name': profile.first_name,
     'volunteer_hours':profile.number_hours,
     'volunteer_moneny_value' : float(profile.number_hours) * 23,
     'message_list' : message_list,
@@ -41,6 +115,7 @@ def personal(request, firstname) :
     return HttpResponse(template.render(context, request))
 
 #render view for login -- or get to
+
 def user_login(request) :
     #return HttpResponse('homepage')
     #return render(request, 'homepage.html')
@@ -51,19 +126,7 @@ def user_login(request) :
     if request.method == 'GET':
     #return HttpResponse('homepage')
     #return render(request, 'homepage.html')
-        '''
-        volunteer_list = models.Volunteers.objects.get(pk=1)
-        print(volunteer_list)
-        template = loader.get_template('login.html')
-        context = {
-        'volunteer_list': volunteer_list,
-        'form' : Profile()
-        }
-        return HttpResponse(template.render(context, request))
-        #snippets = Snippet.objects.all()
-            #serializer = SnippetSerializer(snippets, many=True)
-        #return JsonResponse(serializer.data, safe=False)
-        '''
+     
         #profile = Profile()
         return render(request, "login.html")
 
@@ -79,9 +142,8 @@ def user_login(request) :
         if user is not None:
             #need change to retrieve data page, now just redirect to home
             #from user, get first name
-            print(user, 'get user')
             login(request, user)
-            firstname = models.Profile.objects.get(user = request.user).firstname
+            firstname = user.first_name
             #print(firstname)
             return redirect('/personal/' + firstname)
             #return personal(request, firstname, user)
@@ -118,13 +180,20 @@ def register(request) :
 
         charity = ''
         print(user_info)
+        print('form', UserRegistrationForm(request.POST).is_valid())
+
         user = None
         try :
-            user = User.objects.create_user(username = email, password = password,  first_name = firstname, last_name = lastname)
-            user.save()
-                #profile potentially for additional user information
-            profile = models.Profile.objects.create(user=user, charity_list =charity, number_hours = 0, firstname = firstname, lastname = lastname)
-            profile.save()
+
+            #user = User.objects.create_user(username = email, password = password,  first_name = firstname, last_name = lastname)
+            #user.save()
+            #some how need to validate form
+            if UserRegistrationForm(request.POST).is_valid():
+                profile = models.Profile.objects.create(username = email, first_name = firstname, last_name = lastname, charity_list =charity, number_hours = 0)
+                profile.set_password(password)
+                #profile = models.Profile.objects.create(user=user, charity_list =charity, number_hours = 0, firstname = firstname, lastname = lastname)
+                profile.save()
+
         except :
             template = loader.get_template('user_register.html')
             context = {
@@ -133,24 +202,17 @@ def register(request) :
             return HttpResponse(template.render(context, request))
 
 
-
-
-
         #return render(request, "user_register.html", {"form": user_profile})
 
 
-        return HttpResponseRedirect('/user_login/')
+        return HttpResponseRedirect('/user/login/')
     else:
         profile = Profile()
         return render(request, "user_register.html", {"form": profile})
 
-def landing(request) :
-    #return HttpResponse('homepage')
-    #return render(request, 'homepage.html')
 
-    template = loader.get_template('landing_page.html')
-    context = {}
-    return HttpResponse(template.render(context, request))
+
+
 
 
 def update_hours(request) :
@@ -165,10 +227,12 @@ def update_hours(request) :
         #generate auto message on board
 
         #first get hours in Profile
+        profile = models.Profile.objects.get(username=request.user)
+
         try :
             print(request.user)
-            profile = models.Profile.objects.get(user = request.user)
-            firstname = profile.firstname
+            profile = models.Profile.objects.get(username = request.user)
+            firstname = profile.first_name
             new_total_hours = profile.number_hours + float(hours)
             profile.number_hours = new_total_hours
             print(profile.number_hours, new_total_hours)
@@ -186,20 +250,23 @@ def update_hours(request) :
             return HttpResponse('error input, please double check the hours and charity organization')
 
 
-
-            #need change to retrieve data page, now just redirect to home
-    return HttpResponseRedirect('/personal/' + firstname)
-    '''
-        else:
-            template = loader.get_template('personal_page.html')
-            context = {
-                'login_failed' : 'login failed, please try again'
-            }
-            return HttpResponse(template.render(context, request))
-    '''
+    #render the content again
+    profile = models.Profile.objects.get(username=request.user)
+    print(profile)
+    message_list = models.Message.objects.filter(user=request.user).values()
+    print(message_list, 'message list')
+    template = loader.get_template('personal_page.html')
+    context = {
+        'volunteer_name': profile.first_name,
+        'volunteer_hours': profile.number_hours,
+        'volunteer_moneny_value': float(profile.number_hours) * 23,
+        'message_list': message_list,
+        'percentage_volunteer_hours': float(profile.number_hours) / 200 * 100
+    }
+    return HttpResponse(template.render(context, request))
+  
 def delete_journal(request, id) :
-    profile = models.Profile.objects.get(user = request.user)
-    firstname = profile.firstname
+    profile = models.Profile.objects.get(username = request.user)
     message_to_delete = models.Message.objects.get(pk=id)
     hours = message_to_delete.hours
     message_to_delete.delete()
@@ -212,4 +279,17 @@ def delete_journal(request, id) :
 
     #delete individual entry
 
-    return HttpResponseRedirect('/personal/' + firstname)
+    # render the content again
+    profile = models.Profile.objects.get(username=request.user)
+    print(profile)
+    message_list = models.Message.objects.filter(user=request.user).values()
+    print(message_list, 'message list')
+    template = loader.get_template('personal_page.html')
+    context = {
+        'volunteer_name': profile.first_name,
+        'volunteer_hours': profile.number_hours,
+        'volunteer_moneny_value': float(profile.number_hours) * 23,
+        'message_list': message_list,
+        'percentage_volunteer_hours': float(profile.number_hours) / 200 * 100
+    }
+    return HttpResponse(template.render(context, request))

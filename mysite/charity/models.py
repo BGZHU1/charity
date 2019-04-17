@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, UserManager
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 import datetime
@@ -10,7 +11,7 @@ import datetime
 # Create your models here.
 class Message(models.Model):
     auto_increment_id = models.AutoField(primary_key=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     organization = models.CharField(max_length=100, default='deargoodpeople')
     hours = models.FloatField(default=0)
     date = models.CharField(max_length=100, default=datetime.datetime.today().strftime('%Y-%m-%d'))
@@ -20,12 +21,14 @@ class Message(models.Model):
 
 
 #user profile
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class Profile(User):
+    class Meta:
+        ordering = ["last_name"]
+
     charity_list = models.CharField(max_length=100, default='Volunteers_Home')
     number_hours = models.FloatField(default=0)
-    firstname = models.CharField(max_length=100, default='')
-    lastname = models.CharField(max_length=100, default='')
+    objects = UserManager()
+
 
 
     # other fields...
