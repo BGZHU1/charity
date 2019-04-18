@@ -23,7 +23,12 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from .form import *
 
-class TokenView(ObtainAuthToken):
+from rest_framework import serializers
+from rest_framework import permissions
+from rest_framework.generics import CreateAPIView
+from .serializer import ProfileSerializer
+
+class PersonalView(ObtainAuthToken):
 
     #overwrite the post method inside ObtainAuthToken
     def post(self, request, *args, **kwargs):
@@ -73,8 +78,8 @@ class TokenView(ObtainAuthToken):
         return HttpResponse(template.render(context, request))
 
 
-
-
+'''
+#this will potentailly be the class after got the token for react front end -- not used at this moment
 class UserVerificationView(APIView):
     #authentication_classes = (SessionAuthentication, BasicAuthentication)
 
@@ -89,8 +94,13 @@ class UserVerificationView(APIView):
         }
         return Response(content)
 
+
+'''
+
+
 # Create your views here.
 #@login_required
+'''
 def personal(request) :
     #return HttpResponse('homepage')
     #return render(request, 'homepage.html')
@@ -154,8 +164,28 @@ def user_login(request) :
             }
             return HttpResponse(template.render(context, request))
 
+'''
+class CreateUserView(CreateAPIView):
+
+    model = Profile
+    #template_name = 'registration/login.html'
+
+    permission_classes = [
+        permissions.AllowAny # Or anon users can't register
+    ]
+    serializer_class = ProfileSerializer
+
+    #ovewrite the post method for redirect
+    def post(self, request, *args, **kwargs):
+        super().create(request, *args, **kwargs) #first get results from super methods
+        return HttpResponseRedirect('/')
 
 
+
+
+
+
+'''
 def register(request) :
     #return HttpResponse('homepage')
     #return render(request, 'homepage.html')
@@ -211,7 +241,7 @@ def register(request) :
         return render(request, "user_register.html", {"form": profile})
 
 
-
+'''
 
 
 
