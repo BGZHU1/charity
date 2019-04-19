@@ -22,8 +22,15 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     def validate(self, value, *args, **kwargs):
         if value['password'] != value['confirm_password']:
+
             raise serializers.ValidationError({
-                'confirm_password': ['please enter the same password twice']
+                'password': ['please enter same password twice']
+            })
+
+        if  Profile.objects.filter(username = value['email']).exists():
+
+            raise serializers.ValidationError({
+                'email': ['please enter a different email address']
             })
 
         return value
@@ -35,7 +42,8 @@ class ProfileSerializer(serializers.ModelSerializer):
             last_name= validated_data['last_name'],
             charity_list='',
             number_hours=0
-        )
+            )
+
 
         user.set_password(validated_data['password'])
         user.save()

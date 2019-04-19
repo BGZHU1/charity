@@ -28,6 +28,10 @@ from rest_framework import permissions
 from rest_framework.generics import CreateAPIView
 from .serializer import ProfileSerializer
 
+from rest_framework.renderers import TemplateHTMLRenderer
+
+
+
 class PersonalView(ObtainAuthToken):
 
     #overwrite the post method inside ObtainAuthToken
@@ -168,7 +172,8 @@ def user_login(request) :
 class CreateUserView(CreateAPIView):
 
     model = Profile
-    #template_name = 'registration/login.html'
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'user_register.html'
 
     permission_classes = [
         permissions.AllowAny # Or anon users can't register
@@ -177,12 +182,16 @@ class CreateUserView(CreateAPIView):
 
     #ovewrite the post method for redirect
     def post(self, request, *args, **kwargs):
+        print(request.POST)
         super().create(request, *args, **kwargs) #first get results from super methods
         return HttpResponseRedirect('/')
 
+    def get(self, request, *args, **kwargs):
+        template = loader.get_template('user_register.html')
+        context = {
 
-
-
+        }
+        return HttpResponse(template.render(context, request))
 
 
 '''
