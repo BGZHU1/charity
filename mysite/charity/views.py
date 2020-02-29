@@ -82,6 +82,49 @@ class PersonalView(ObtainAuthToken):
         return HttpResponse(template.render(context, request))
 
 
+
+class FBView(APIView):
+    permission_classes = (IsAuthenticated,)
+    def get(self, request, *args, **kwargs):
+        print(request.GET)
+
+        print(request.user)
+
+
+        #user = serializer.validated_data['user']
+        #token, created = Token.objects.get_or_create(user=user)
+        #print('token', token)
+        #print(self.schema) # from parent class
+        #return Response({'token': token.key})
+
+
+
+        #this may be different view later
+        #get personal page info
+        #will first login for future update info
+        #print(request)
+        #user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        #print(user)
+        #if user is not None:
+            #login(request, user)
+
+
+        profile = models.Profile.objects.get(username=user)
+        print(profile)
+        message_list = models.Message.objects.filter(user=user).values()
+        print(message_list, 'message list')
+        template = loader.get_template('personal_page.html')
+        context = {
+            'volunteer_name': profile.first_name,
+            'volunteer_hours': profile.number_hours,
+            'volunteer_moneny_value': float(profile.number_hours) * 23,
+            'message_list': message_list,
+            'percentage_volunteer_hours': float(profile.number_hours) / 200 * 100
+        }
+        return HttpResponse(template.render(context, request))
+
+
+
 '''
 #this will potentailly be the class after got the token for react front end -- not used at this moment
 class UserVerificationView(APIView):

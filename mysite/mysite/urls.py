@@ -17,12 +17,16 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf.urls import include
 from django.contrib.auth import views as auth_views
+from django.views.generic import TemplateView
 
 urlpatterns = [
+    #social
+    url(r'^accounts/', include('allauth.urls')),
+
     url(r'^user/', include('django.contrib.auth.urls')),
     url(r'^login/$', auth_views.LoginView.as_view(), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
-    url(r'^accounts/login/$', include('charity.urls')),
+    #url(r'^accounts/login/$', include('charity.urls')),
     url(r'^', include('charity.urls')),  # empty -- can be home page later
     url(r'^admin/', admin.site.urls),
     url(r'^index/', include('charity.urls'))

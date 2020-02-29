@@ -41,9 +41,27 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #social
+    # The following apps are required:
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+
 ]
 
 #AUTH_USER_MODEL = 'charity.Profile'
+
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 #redirect if login fail or logout
 #LOGIN_REDIRECT_URL = '/'
@@ -148,3 +166,5 @@ print(STATICFILES_DIRS)
 
 STATIC_URL = '/static/'
 STATIC_ROOT = 'static'
+
+SITE_ID = 1
